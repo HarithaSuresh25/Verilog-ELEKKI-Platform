@@ -6,7 +6,7 @@ The side road gets a green light if:
 1. An emergency vehicle (ambulance/fire engine) is detected on the side road (emergency = 1), OR
 
 2. There is no vehicle traffic detected on the main road (car_main = 0) AND (a vehicle is waiting on the side road (car_side = 1) OR a pedestrian button was pressed (pedestrian = 1)).
-
+```
 module traffic_priority_controller (
     input  logic car_main,
     input  logic car_side,
@@ -15,20 +15,18 @@ module traffic_priority_controller (
     output logic side_green
 );
 
-    // side_green = E + M'(S + P)
     assign side_green = emergency | (~car_main & (car_side | pedestrian));
 
 endmodule
-
+```
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 Implement a Smart Traffic Light Priority Controller for a side road. The output signal side_green should be driven high (1) to grant a green signal to the side-road traffic under specific priority rules.
 The side road gets a green light if:
 1. An emergency vehicle (ambulance/fire engine) is detected on the side road (emergency = 1), OR
 2. There is no vehicle traffic detected on the main road (car_main = 0) AND (a vehicle is waiting on the side road (car_side = 1) OR a pedestrian button was pressed (pedestrian = 1)).
 Use Boolean simplification to reduce the control logic into a minimal logic network.
 Port Specifications
-
+```
 module traffic_priority_controller (
     input  logic car_main,
     input  logic car_side,
@@ -41,7 +39,7 @@ module traffic_priority_controller (
     assign side_green = emergency | (~car_main & (car_side | pedestrian));
 
 endmodule
-
+```
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Implement a BCD to 7-Segment LED Display Decoder supporting common-anode or common-cathode mapping with active-high outputs, blanking control, and invalid BCD detection.
 A BCD to 7-Segment decoder maps a 4-bit Binary Coded Decimal input ($0$ to $9$) to a 7-bit output bus (seg[6:0]) representing segments a through g to display decimal digits on a standard display element.
@@ -74,7 +72,7 @@ Outputs:
 - seg (7-bit): Active-high 7-segment display control bus {g, f, e, d, c, b, a}.
 - invalid (1-bit): Flag asserted HIGH when input is outside valid BCD range ($10\text{--}15$).
 
-  
+```  
 // BCD to 7-segment decoder, gate-level (from K-map simplification)
 // seg[6:0] = {g, f, e, d, c, b, a}, active-HIGH
 // A = bcd[3] (MSB), B = bcd[2], C = bcd[1], D = bcd[0] (LSB)
@@ -113,6 +111,7 @@ module bcd_to_7seg_gates (
     assign invalid = en & A & (B | C);
 
 endmodule
+```
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Implement a Solar-Grid Hybrid Battery Charger Switch. The output signal charge_on should drive high (1) to engage the power stage charging relay for an energy storage bank.
@@ -129,7 +128,7 @@ Inputs:
 - batt_low (1-bit): Battery low-voltage warning threshold (1 = Critical discharge).
 Outputs:
 - charge_on (1-bit): Signal enabling the power electronic battery charger.
-
+```
   module solar_charger_controller (
     input  logic solar,
     input  logic grid,
@@ -142,6 +141,7 @@ Outputs:
     assign charge_on = ~batt_full & (solar | (grid & batt_low));
 
 endmodule
+```
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Implement an HVAC Energy-Saving Air Conditioner Controller. The output signal ac_on should go high (1) to activate the compressor unit based on room temperature and occupancy parameters.
@@ -157,8 +157,7 @@ The compressor turns ON if:
 4. The system is NOT operating in eco-lockout mode (eco_mode = 0), OR if eco_mode = 1, the temperature is critically high (crit_high = 1).
 
 Simplify this multi-variable boolean rule using K-map or Boolean reduction techniques.
-
-
+```
 module hvac_ac_controller (
     input  logic temp_high,
     input  logic occupancy,
@@ -172,6 +171,7 @@ module hvac_ac_controller (
     assign ac_on=temp_high&occupancy&(~window_open)&(~(eco_mode&~crit_high));
 
 endmodule
+```
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Implement a 4-to-1 Multiplexer. The circuit selects one of four 1-bit data inputs (d0, d1, d2, d3) based on a 2-bit selection input sel[1:0] and routes it to the single output out.
@@ -188,7 +188,7 @@ Inputs:
 - sel (2-bit): Selection line vector (sel[1:0]).
 Outputs:
 - out (1-bit): Multiplexed output signal
-
+```
   module mux_4to1 (
     input  wire       d0,
     input  wire       d1,
@@ -203,4 +203,5 @@ Outputs:
 
 
 endmodule
+```
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
